@@ -4,11 +4,9 @@ const router = express.Router();
 
 require('dotenv').config();
 
-app.get("/comics", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
       let limit = 100;
-  
-      console.log("query =>", req.query); 
   
       let filters = "";
       if (req.query.title) {
@@ -31,9 +29,8 @@ app.get("/comics", async (req, res) => {
     }
   });
 
-router.get("/comics/:characterId", async (req, res) => {
+router.get("/:characterId", async (req, res) => {
     try {
-        console.log(req.params);
         const response = await axios.get(
             "https://lereacteur-marvel-api.herokuapp.com/comics/" +
             req.params.characterId +

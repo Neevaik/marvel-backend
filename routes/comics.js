@@ -29,18 +29,33 @@ router.get("/", async (req, res) => {
     }
   });
 
-router.get("/:characterId", async (req, res) => {
-    try {
-        const response = await axios.get(
-            "https://lereacteur-marvel-api.herokuapp.com/comics/" +
-            req.params.characterId +
-            "?apiKey=" +
-            process.env.API_KEY
-        );
-        return res.status(200).json(response.data);
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
-    }
+
+router.get("/character-detail/:characterId", async (req, res) => {
+  try {
+      const response = await axios.get(
+          "https://lereacteur-marvel-api.herokuapp.com/comics/" +
+          req.params.characterId +
+          "?apiKey=" +
+          process.env.API_KEY
+      );
+      return res.status(200).json({results:response.data});
+  } catch (error) {
+      return res.status(500).json({ message: error.message });
+  }
+});
+
+router.get("/comic-detail/:comicId", async (req, res) => {
+  try {
+      const response = await axios.get(
+          "https://lereacteur-marvel-api.herokuapp.com/comic/" +
+          req.params.comicId +
+          "?apiKey=" +
+          process.env.API_KEY
+      );
+      return res.status(200).json({results:[response.data]});
+  } catch (error) {
+      return res.status(500).json({ message: error.message });
+  }
 });
 
 module.exports = router;
